@@ -57,6 +57,7 @@ export default function Projects() {
   const containerRef = useRef(null);
   const trackRef = useRef(null);
   const [maxScroll, setMaxScroll] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   const x = useMotionValue(0);
   const smoothX = useSpring(x, { stiffness: 60, damping: 20 });
@@ -68,6 +69,7 @@ export default function Projects() {
         const trackWidth = trackRef.current.scrollWidth;
         const max = Math.max(0, trackWidth - containerWidth);
         setMaxScroll(max);
+        setIsMobile(window.innerWidth < 768);
       }
     };
     
@@ -77,7 +79,7 @@ export default function Projects() {
   }, []);
 
   const handleMouseMove = (e) => {
-    if (maxScroll <= 0) return;
+    if (isMobile || maxScroll <= 0) return;
     const percentage = e.clientX / window.innerWidth;
     x.set(-(percentage * maxScroll));
   };
@@ -101,16 +103,16 @@ export default function Projects() {
         <div className="w-12 h-1 bg-red-accent"></div>
       </div>
 
-      <div className="w-full overflow-hidden pb-10">
+      <div className="w-full overflow-x-auto md:overflow-hidden pb-10 flex snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         <motion.div 
           ref={trackRef}
-          style={{ x: smoothX }} 
+          style={{ x: isMobile ? 0 : smoothX }} 
           className="flex gap-8 px-6 md:px-16 w-max"
         >
           {PROJECTS.map((project, index) => (
             <motion.div
               key={index}
-              className={`w-[85vw] md:w-[600px] h-[500px] bg-card-bg border border-white/10 hover:border-red-accent hover:shadow-[0_0_30px_rgba(229,9,20,0.2)] transition-all duration-500 rounded-2xl p-10 flex flex-col justify-between relative group overflow-hidden flex-shrink-0`}
+              className={`w-[85vw] md:w-[600px] h-[500px] bg-card-bg border border-white/10 hover:border-red-accent hover:shadow-[0_0_30px_rgba(229,9,20,0.2)] transition-all duration-500 rounded-2xl p-10 flex flex-col justify-between relative group overflow-hidden flex-shrink-0 snap-center`}
             >
               {/* Background Glow */}
               <div className={`absolute inset-0 bg-gradient-to-br ${project.color} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700`}></div>
