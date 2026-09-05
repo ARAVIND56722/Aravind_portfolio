@@ -112,7 +112,7 @@ export default function Projects() {
           {PROJECTS.map((project, index) => (
             <motion.div
               key={index}
-              className={`w-[85vw] md:w-[600px] h-[500px] bg-card-bg border border-white/10 hover:border-red-accent hover:shadow-[0_0_30px_rgba(229,9,20,0.2)] transition-all duration-500 rounded-2xl p-10 flex flex-col justify-between relative group overflow-hidden flex-shrink-0 snap-center`}
+              className={`w-[85vw] md:w-[600px] min-h-[500px] md:h-[500px] bg-card-bg border border-white/10 hover:border-red-accent hover:shadow-[0_0_30px_rgba(229,9,20,0.2)] transition-all duration-500 rounded-2xl p-6 md:p-10 flex flex-col justify-between relative group overflow-hidden flex-shrink-0 snap-center`}
             >
               {/* Background Glow */}
               <div className={`absolute inset-0 bg-gradient-to-br ${project.color} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700`}></div>
@@ -122,7 +122,7 @@ export default function Projects() {
                 <h3 className="text-3xl md:text-4xl font-display font-bold text-white mb-4 leading-tight group-hover:text-red-accent transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-white/60 text-lg leading-relaxed mb-6">
+                <p className="text-white/60 text-base md:text-lg leading-relaxed mb-6">
                   {project.description}
                 </p>
 
